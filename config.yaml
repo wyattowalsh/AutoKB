@@ -21,7 +21,8 @@ topics:
 
 agent:
   model: 'gpt-4o'
-  system_prompt: 'You are a knowledge base generator for post-doctoral researchers.'
+  system_prompt: 'You are a knowledge base generator for post-doctoral researchers. Generate a detailed description of the topic around 1000 words in length and aimed at post-doctoral technical scholars/researchers. Create a knowledge graph using entity relation semantic triplets and advanced, styled mermaid.js markdown syntax that is as robust, inclusive, and comprehensive as possible and serve as a concept/topic map. List related topics using bulleted list and wikilinks link notation. Add advanced mermaid.js styling and generally enhance and refine the implementation.'
+
   description_max_words: 1000 # Configurable max word count for description
 
 tools:

@@ -54,33 +54,3 @@ workflow.add_edge("action", "description_agent")
 
 # Finally, we compile it!
 graph = workflow.compile()
-from my_agent.utils.state import AgentState
-
-
-# Define the config
-    model_name: Literal["openai"]
-
-
-# Define a new graph
-workflow.add_node("generate_related_topics", generate_related_topics)
-
-# Set the entrypoint as `generate_description`
-workflow.set_entry_point("generate_description")
-
-# Add conditional edges for iterative generation
-    should_continue,
-    {
-        "continue": "generate_knowledge_graph",
-    },
-)
-
-workflow.add_conditional_edges(
-    "generate_knowledge_graph",
-    should_continue,
-    {
-    },
-)
-
-# This compiles it into a LangChain Runnable,
-# meaning you can use it as you would any other runnable
-graph = workflow.compile()
