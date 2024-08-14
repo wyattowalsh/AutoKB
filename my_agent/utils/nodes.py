@@ -43,3 +43,21 @@ def call_model(state, config):
 
 # Define the function to execute tools
 tool_node = ToolNode(tools)
+
+# Define the function for generating descriptions
+def generate_description(state, config):
+    description_prompt = "Generate a detailed description of the topic."
+    state["messages"].append({"role": "user", "content": description_prompt})
+    return call_model(state, config)
+
+# Define the function for generating knowledge graphs
+def generate_knowledge_graph(state, config):
+    knowledge_graph_prompt = "Generate a knowledge graph for the topic."
+    state["messages"].append({"role": "user", "content": knowledge_graph_prompt})
+    return call_model(state, config)
+
+# Define the function for generating related topics
+def generate_related_topics(state, config):
+    related_topics_prompt = "Generate a list of related topics."
+    state["messages"].append({"role": "user", "content": related_topics_prompt})
+    return call_model(state, config)

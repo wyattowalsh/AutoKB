@@ -1,52 +1,56 @@
 from typing import TypedDict, Literal
 
 from langgraph.graph import StateGraph, END
-from my_agent.utils.nodes import call_model, should_continue, tool_node
+from my_agent.utils.nodes import call_model, should_continue, tool_node, generate_description, generate_knowledge_graph, generate_related_topics
 from my_agent.utils.state import AgentState
-
 
 # Define the config
 class GraphConfig(TypedDict):
     model_name: Literal["anthropic", "openai"]
-
+    max_depth: int
 
 # Define a new graph
 workflow = StateGraph(AgentState, config_schema=GraphConfig)
 
-# Define the two nodes we will cycle between
-workflow.add_node("agent", call_model)
+# Define the nodes for different agents
+workflow.add_node("description_agent", generate_description)
+workflow.add_node("knowledge_graph_agent", generate_knowledge_graph)
+workflow.add_node("related_topics_agent", generate_related_topics)
 workflow.add_node("action", tool_node)
 
-# Set the entrypoint as `agent`
-# This means that this node is the first one called
-workflow.set_entry_point("agent")
+# Set the entrypoint as `description_agent`
+workflow.set_entry_point("description_agent")
 
-# We now add a conditional edge
+# Add conditional edges for iterative generation
 workflow.add_conditional_edges(
-    # First, we define the start node. We use `agent`.
-    # This means these are the edges taken after the `agent` node is called.
-    "agent",
-    # Next, we pass in the function that will determine which node is called next.
+    "description_agent",
     should_continue,
-    # Finally we pass in a mapping.
-    # The keys are strings, and the values are other nodes.
-    # END is a special node marking that the graph should finish.
-    # What will happen is we will call `should_continue`, and then the output of that
-    # will be matched against the keys in this mapping.
-    # Based on which one it matches, that node will then be called.
     {
-        # If `tools`, then we call the tool node.
-        "continue": "action",
-        # Otherwise we finish.
+        "continue": "knowledge_graph_agent",
         "end": END,
     },
 )
 
-# We now add a normal edge from `tools` to `agent`.
-# This means that after `tools` is called, `agent` node is called next.
-workflow.add_edge("action", "agent")
+workflow.add_conditional_edges(
+    "knowledge_graph_agent",
+    should_continue,
+    {
+        "continue": "related_topics_agent",
+        "end": END,
+    },
+)
+
+workflow.add_conditional_edges(
+    "related_topics_agent",
+    should_continue,
+    {
+        "continue": "action",
+        "end": END,
+    },
+)
+
+# Add normal edges for cycling through agents
+workflow.add_edge("action", "description_agent")
 
 # Finally, we compile it!
-# This compiles it into a LangChain Runnable,
-# meaning you can use it as you would any other runnable
 graph = workflow.compile()

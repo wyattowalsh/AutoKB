@@ -1,0 +1,33 @@
+topics:
+  - Knowledge Management
+  - Entrepreneurship
+  - Decisions
+  - Optimization
+  - Large Language Models (LLMs)
+  - Prompt Engineering
+  - Artificial Intelligence (AI)
+  - Machine Learning (ML)
+  - Data
+  - Data Science
+  - Data Analytics
+  - Data Engineering
+  - Mathematics
+  - Statistics
+  - Computer Science
+  - Software Engineering
+  - Knowledge Graphs
+  - Semantic Web
+  - Ontologies
+
+agent:
+  model: 'gpt-4o'
+  system_prompt: 'You are a knowledge base generator for post-doctoral researchers.'
+  description_max_words: 1000 # Configurable max word count for description
+
+tools:
+  max_search_results: 5
+  cache_ttl: 86400 # TTL in seconds (24 hours)
+  max_depth: 2 # Added max_depth to tools config
+
+output:
+  working_directory: './kb_output'
