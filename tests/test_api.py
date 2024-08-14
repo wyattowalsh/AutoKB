@@ -1,7 +1,7 @@
 import pytest
 from fastapi.testclient import TestClient
 from fastapi import WebSocketDisconnect
-from api import app
+from autokb.api import app
 
 client = TestClient(app)
 

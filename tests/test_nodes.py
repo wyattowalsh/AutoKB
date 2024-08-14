@@ -1,6 +1,6 @@
 import pytest
 from unittest.mock import patch, MagicMock
-from my_agent.utils.nodes import call_model, should_continue, generate_description, generate_knowledge_graph, generate_related_topics
+from autokb.utils.nodes import call_model, should_continue, generate_description, generate_knowledge_graph, generate_related_topics
 
 @pytest.fixture
 def mock_state():

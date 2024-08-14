@@ -1,6 +1,6 @@
 import pytest
 from unittest.mock import patch, MagicMock
-from my_agent.utils.kbgen_logging import setup_logging
+from autokb.utils.autokb_logging import setup_logging
 from loguru import logger
 
 @pytest.fixture

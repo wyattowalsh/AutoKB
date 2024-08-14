@@ -1,6 +1,6 @@
 import pytest
 from unittest.mock import patch, MagicMock
-from my_agent.utils.tools import get_tool_results, get_results, clear_cache, remove_cache_entry
+from autokb.utils.tools import get_tool_results, get_results, clear_cache, remove_cache_entry
 
 @pytest.fixture
 def mock_config():

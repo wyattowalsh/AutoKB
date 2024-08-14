@@ -1,7 +1,11 @@
 {
-  "dependencies": ["."],
+  "python_version": "3.11",
+  "dockerfile_lines": [],
+  "dependencies": [
+    "./autokb"
+  ],
   "graphs": {
-    "agent": "./my_agent/agent.py:graph"
+    "agent": "./autokb/agent.py:graph"
   },
   "env": ".env"
 }

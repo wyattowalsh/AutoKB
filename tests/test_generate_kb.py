@@ -1,7 +1,7 @@
 import pytest
 from unittest.mock import patch, MagicMock
-from my_agent.utils.generate_kb import generate_kb_page, generate_knowledge_graph_triplets
-from my_agent.utils.schema import Description, KnowledgeGraph, RelatedTopics, SemanticTriple
+from autokb.utils.generate_kb import generate_kb_page, generate_knowledge_graph_triplets
+from autokb.utils.schema import Description, KnowledgeGraph, RelatedTopics, SemanticTriple
 
 @pytest.fixture
 def mock_description():

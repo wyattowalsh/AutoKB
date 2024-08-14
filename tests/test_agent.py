@@ -1,7 +1,7 @@
 import pytest
 from unittest.mock import patch, MagicMock
-from my_agent.agent import graph
-from my_agent.utils.state import AgentState
+from autokb.agent import graph
+from autokb.utils.state import AgentState
 
 @pytest.fixture
 def mock_state():
