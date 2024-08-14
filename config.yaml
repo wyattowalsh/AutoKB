@@ -49,3 +49,10 @@ caching:
   enabled: true # Whether caching is enabled
   cache_size: 100 # Maximum size of the cache
   cache_ttl: 86400 # Time-to-live for cache entries in seconds
+
+websocket_api:
+  host: '0.0.0.0'
+  port: 8000
+  log_level: 'info'
+  allowed_origins:
+    - '*'
