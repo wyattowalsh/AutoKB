@@ -24,11 +24,28 @@ agent:
   system_prompt: 'You are a knowledge base generator for post-doctoral researchers. Generate a detailed description of the topic around 1000 words in length and aimed at post-doctoral technical scholars/researchers. Create a knowledge graph using entity relation semantic triplets and advanced, styled mermaid.js markdown syntax that is as robust, inclusive, and comprehensive as possible and serve as a concept/topic map. List related topics using bulleted list and wikilinks link notation. Add advanced mermaid.js styling and generally enhance and refine the implementation.'
 
   description_max_words: 1000 # Configurable max word count for description
+  max_iterations: 5 # Maximum number of iterations for the agent
+  retry_attempts: 3 # Number of retry attempts for failed tasks
 
 tools:
   max_search_results: 5
   cache_ttl: 86400 # TTL in seconds (24 hours)
   max_depth: 2 # Added max_depth to tools config
+  tool_choice: ['tavily', 'serper'] # Choice of tools to use: 'tavily', 'serper', or both
 
 output:
   working_directory: './kb_output'
+  file_format: 'markdown' # Output file format: 'markdown' or 'html'
+  include_metadata: true # Whether to include metadata in the output files
+
+logging:
+  level: 'INFO' # Logging level: 'DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL'
+  format: '{time} - {name} - {level} - {message}' # Logging format with loguru variables
+  log_to_file: true # Whether to log to a file
+  log_file_path: './logs/agent.log' # Path to the log file
+  verbosity: 1 # Verbosity level for logging to console
+
+caching:
+  enabled: true # Whether caching is enabled
+  cache_size: 100 # Maximum size of the cache
+  cache_ttl: 86400 # Time-to-live for cache entries in seconds

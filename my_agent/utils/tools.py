@@ -25,3 +25,12 @@ def get_results(query, config):
     if tool_choice in ["serper", "both"]:
         results.append(get_tool_results(tools["serper"], query))
     return results
+
+# Function to clear the cache
+def clear_cache():
+    cache.clear()
+
+# Function to remove a specific entry from the cache
+def remove_cache_entry(key):
+    if key in cache:
+        del cache[key]

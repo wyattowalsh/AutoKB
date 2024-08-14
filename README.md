@@ -60,9 +60,24 @@ tools:
   max_search_results: 5
   cache_ttl: 86400 # TTL in seconds (24 hours)
   max_depth: 2 # Added max_depth to tools config
+  tool_choice: ['tavily', 'serper'] # Choice of tools to use: 'tavily', 'serper', or both
 
 output:
   working_directory: './kb_output'
+  file_format: 'markdown' # Output file format: 'markdown' or 'html'
+  include_metadata: true # Whether to include metadata in the output files
+
+logging:
+  level: 'INFO' # Logging level: 'DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL'
+  format: '{time} - {name} - {level} - {message}' # Logging format with loguru variables
+  log_to_file: true # Whether to log to a file
+  log_file_path: './logs/agent.log' # Path to the log file
+  verbosity: 1 # Verbosity level for logging to console
+
+caching:
+  enabled: true # Whether caching is enabled
+  cache_size: 100 # Maximum size of the cache
+  cache_ttl: 86400 # Time-to-live for cache entries in seconds
 ```
 
 ### Output

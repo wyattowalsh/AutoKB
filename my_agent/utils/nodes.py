@@ -2,7 +2,16 @@ from functools import lru_cache
 from langchain_openai import ChatOpenAI
 from my_agent.utils.tools import tools
 from langgraph.prebuilt import ToolNode
+import logging
+from rich.logging import RichHandler
 
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+    handlers=[RichHandler()]
+)
+logger = logging.getLogger(__name__)
 
 @lru_cache(maxsize=4)
 def _get_model(model_name: str):
@@ -30,11 +39,11 @@ system_prompt = """Be a helpful assistant"""
 
 # Define the function that calls the model
 def call_model(state, config):
-    
     description_prompt = f"""
     Generate a detailed description of the topic around {config['agent']['description_max_words']} words in length and aimed at post-doctoral technical scholars/researchers.
     """
     state["messages"].append({"role": "user", "content": description_prompt})
+    logger.info("Calling model with description prompt")
     return call_model(state, config)
 
 # Define the function for generating knowledge graphs
@@ -43,6 +52,7 @@ def generate_knowledge_graph(state, config):
     Create a knowledge graph using entity relation semantic triplets and advanced, styled mermaid.js markdown syntax that is as robust, inclusive, and comprehensive as possible and serve as a concept/topic map.
     """
     state["messages"].append({"role": "user", "content": knowledge_graph_prompt})
+    logger.info("Calling model with knowledge graph prompt")
     return call_model(state, config)
 
 # Define the function for generating related topics
@@ -51,4 +61,5 @@ def generate_related_topics(state, config):
     Generate a list of related topics (up to 25) using bulleted list and wikilinks link notation.
     """
     state["messages"].append({"role": "user", "content": related_topics_prompt})
+    logger.info("Calling model with related topics prompt")
     return call_model(state, config)
