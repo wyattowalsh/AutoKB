@@ -4,6 +4,8 @@ from my_agent.utils.tools import tools
 from langgraph.prebuilt import ToolNode
 import logging
 from rich.logging import RichHandler
+import langfuse
+import langsmith
 
 # Configure logging
 logging.basicConfig(
@@ -12,6 +14,10 @@ logging.basicConfig(
     handlers=[RichHandler()]
 )
 logger = logging.getLogger(__name__)
+
+# Initialize langfuse and langsmith
+langfuse.init()
+langsmith.init()
 
 @lru_cache(maxsize=4)
 def _get_model(model_name: str):
@@ -44,6 +50,8 @@ def call_model(state, config):
     """
     state["messages"].append({"role": "user", "content": description_prompt})
     logger.info("Calling model with description prompt")
+    langfuse.trace(logger)
+    langsmith.trace(logger)
     return call_model(state, config)
 
 # Define the function for generating knowledge graphs
@@ -53,6 +61,8 @@ def generate_knowledge_graph(state, config):
     """
     state["messages"].append({"role": "user", "content": knowledge_graph_prompt})
     logger.info("Calling model with knowledge graph prompt")
+    langfuse.trace(logger)
+    langsmith.trace(logger)
     return call_model(state, config)
 
 # Define the function for generating related topics
@@ -62,4 +72,6 @@ def generate_related_topics(state, config):
     """
     state["messages"].append({"role": "user", "content": related_topics_prompt})
     logger.info("Calling model with related topics prompt")
+    langfuse.trace(logger)
+    langsmith.trace(logger)
     return call_model(state, config)
