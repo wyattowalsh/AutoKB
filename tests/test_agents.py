@@ -36,7 +36,31 @@ def test_page_data_generator_agent_generate_page_data(page_data_generator_agent)
     assert "related_topics" in page_data
     assert "resources" in page_data
 
+def test_page_data_generator_agent_generate_kb_page(page_data_generator_agent):
+    topic = "Test Topic"
+    research_data = "Research Data"
+    kb_page = page_data_generator_agent.generate_kb_page(topic, research_data)
+    assert "title: Test Topic" in kb_page
+    assert "tags: ['tag1', 'tag2']" in kb_page
+    assert "aliases: ['alias1', 'alias2']" in kb_page
+    assert "created:" in kb_page
+    assert "updated:" in kb_page
+    assert "# Test Topic" in kb_page
+    assert "Comprehensive description" in kb_page
+    assert "Knowledge graph" in kb_page
+    assert "Related Topics" in kb_page
+    assert "Related Topic 1" in kb_page
+    assert "Related Topic 2" in kb_page
+    assert "Resources" in kb_page
+    assert "Resource 1" in kb_page
+    assert "Resource 2" in kb_page
+
 def test_manager_researcher_agent_manage_research(manager_researcher_agent):
     topic = "Test Topic"
     compiled_results = manager_researcher_agent.manage_research(topic)
     assert compiled_results == "Compiled results"
+
+def test_manager_researcher_agent_compile_output_for_data_generator(manager_researcher_agent):
+    all_results = ["Result 1", "Result 2"]
+    compiled_output = manager_researcher_agent.compile_output_for_data_generator(all_results)
+    assert compiled_output == "Compiled output for data generator"
