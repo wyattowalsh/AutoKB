@@ -22,13 +22,17 @@ def test_researcher_agent_conduct_research(researcher_agent):
     results = researcher_agent.conduct_research(topic)
     assert results == "Synthesized results"
 
-def test_page_data_generator_agent_generate_page_data(page_data_generator_agent):
+def test_page_data_generator_agent_generate_page_data(page_data_generator_agent, mocker):
     topic = "Test Topic"
     research_data = "Research Data"
+    
+    mocker.patch.object(PageDataGeneratorAgent, 'extract_tags', return_value=['tag1', 'tag2'])
+    mocker.patch.object(PageDataGeneratorAgent, 'extract_aliases', return_value=['alias1', 'alias2'])
+    
     page_data = page_data_generator_agent.generate_page_data(topic, research_data)
     assert page_data["title"] == "Test Topic"
-    assert "tags" in page_data
-    assert "aliases" in page_data
+    assert page_data["tags"] == ['tag1', 'tag2']
+    assert page_data["aliases"] == ['alias1', 'alias2']
     assert "created" in page_data
     assert "updated" in page_data
     assert "description" in page_data
@@ -36,9 +40,13 @@ def test_page_data_generator_agent_generate_page_data(page_data_generator_agent)
     assert "related_topics" in page_data
     assert "resources" in page_data
 
-def test_page_data_generator_agent_generate_kb_page(page_data_generator_agent):
+def test_page_data_generator_agent_generate_kb_page(page_data_generator_agent, mocker):
     topic = "Test Topic"
     research_data = "Research Data"
+    
+    mocker.patch.object(PageDataGeneratorAgent, 'extract_tags', return_value=['tag1', 'tag2'])
+    mocker.patch.object(PageDataGeneratorAgent, 'extract_aliases', return_value=['alias1', 'alias2'])
+    
     kb_page = page_data_generator_agent.generate_kb_page(topic, research_data)
     assert "title: Test Topic" in kb_page
     assert "tags: ['tag1', 'tag2']" in kb_page

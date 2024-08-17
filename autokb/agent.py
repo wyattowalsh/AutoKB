@@ -33,26 +33,21 @@ class PageDataGeneratorAgent:
 
     def generate_page_data(self, topic, research_data):
         logger.info(f"Generating page data for topic: {topic}")
-        page_data = {
-            "title": topic.title(),
-            "tags": self.extract_tags(research_data),
-            "aliases": self.extract_aliases(research_data),
-            "created": self.get_current_datetime(),
-            "updated": self.get_current_datetime(),
-            "description": self.generate_description(research_data),
-            "knowledge_graph": self.generate_knowledge_graph(research_data),
-            "related_topics": self.generate_related_topics(research_data),
-            "resources": self.generate_resources(research_data)
-        }
+        llm = LangChain()
+        page_data = llm.generate_page_data(research_data, mode="JSON")
         return page_data
 
     def extract_tags(self, research_data):
-        # Extract tags from research data
-        return ["tag1", "tag2"]
+        # Use LLM to generate tags from research data
+        llm = LangChain()
+        tags = llm.generate_tags(research_data)
+        return tags
 
     def extract_aliases(self, research_data):
-        # Extract aliases from research data
-        return ["alias1", "alias2"]
+        # Use LLM to generate aliases from research data
+        llm = LangChain()
+        aliases = llm.generate_aliases(research_data)
+        return aliases
 
     def get_current_datetime(self):
         # Get the current datetime in the specified format
