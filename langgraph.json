@@ -1,9 +1,5 @@
 {
-  "python_version": "3.11",
-  "dockerfile_lines": [],
-  "dependencies": [
-    "./autokb"
-  ],
+  "dependencies": ["."],
   "graphs": {
     "agent": "./autokb/agent.py:graph"
   },
