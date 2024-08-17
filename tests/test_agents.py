@@ -72,3 +72,42 @@ def test_manager_researcher_agent_compile_output_for_data_generator(manager_rese
     all_results = ["Result 1", "Result 2"]
     compiled_output = manager_researcher_agent.compile_output_for_data_generator(all_results)
     assert compiled_output == "Compiled output for data generator"
+
+def test_researcher_agent_generate_search_query(researcher_agent):
+    topic = "Test Topic"
+    search_query = researcher_agent.generate_search_query(topic)
+    assert search_query == "Search query for Test Topic"
+
+def test_page_data_generator_agent_extract_tags(page_data_generator_agent):
+    research_data = "Research Data"
+    tags = page_data_generator_agent.extract_tags(research_data)
+    assert tags == ["tag1", "tag2"]
+
+def test_page_data_generator_agent_extract_aliases(page_data_generator_agent):
+    research_data = "Research Data"
+    aliases = page_data_generator_agent.extract_aliases(research_data)
+    assert aliases == ["alias1", "alias2"]
+
+def test_page_data_generator_agent_get_current_datetime(page_data_generator_agent):
+    current_datetime = page_data_generator_agent.get_current_datetime()
+    assert current_datetime is not None
+
+def test_page_data_generator_agent_generate_description(page_data_generator_agent):
+    research_data = "Research Data"
+    description = page_data_generator_agent.generate_description(research_data)
+    assert description == "Comprehensive description"
+
+def test_page_data_generator_agent_generate_knowledge_graph(page_data_generator_agent):
+    research_data = "Research Data"
+    knowledge_graph = page_data_generator_agent.generate_knowledge_graph(research_data)
+    assert knowledge_graph == "Knowledge graph"
+
+def test_page_data_generator_agent_generate_related_topics(page_data_generator_agent):
+    research_data = "Research Data"
+    related_topics = page_data_generator_agent.generate_related_topics(research_data)
+    assert related_topics == ["Related Topic 1", "Related Topic 2"]
+
+def test_page_data_generator_agent_generate_resources(page_data_generator_agent):
+    research_data = "Research Data"
+    resources = page_data_generator_agent.generate_resources(research_data)
+    assert resources == ["Resource 1", "Resource 2"]
