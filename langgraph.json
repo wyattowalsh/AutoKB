@@ -1,7 +1,10 @@
 {
   "dependencies": ["."],
   "graphs": {
-    "agent": "./autokb/agent.py:graph"
+    "agent": "./autokb/agent.py:graph",
+    "researcher": "./autokb/agent.py:ResearcherAgent",
+    "page_data_generator": "./autokb/agent.py:PageDataGeneratorAgent",
+    "manager_researcher": "./autokb/agent.py:ManagerResearcherAgent"
   },
   "env": ".env"
 }

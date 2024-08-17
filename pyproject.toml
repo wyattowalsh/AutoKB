@@ -11,6 +11,21 @@ packages = [
 
 [tool.poetry.dependencies]
 python = "^3.11"
+langgraph = "^0.1.0"
+langchain = "^0.1.0"
+llama-index = "^0.1.0"
+langfuse = "^0.1.0"
+langsmith = "^0.1.0"
+loguru = "^0.1.0"
+rich = "^0.1.0"
+typer = "^0.1.0"
+fastapi = "^0.1.0"
+pydantic = "^0.1.0"
+tenacity = "^0.1.0"
+
+[tool.poetry.dev-dependencies]
+pytest = "^0.1.0"
+yapf = "^0.1.0"
 
 [build-system]
 requires = ["poetry-core"]
